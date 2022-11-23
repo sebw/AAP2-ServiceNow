@@ -306,7 +306,7 @@ Click Create New Tab
 
 Save
 
-Refresh your Mobile app, you should now see a service section appear in the lower menu.
+Refresh your Mobile app, you should now see a "Services" section appear in the lower menu.
 
 From your mobile phone, navigate to Services > Software > Provision VM
 
