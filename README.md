@@ -6,7 +6,7 @@ Let's see how we can integrate those two platforms together.
 
 As an extra bonus, the last section of this how to explains how to order a service from the ServiceNow mobile app.
 
-## ServiceNow instance
+## ServiceNow and Ansible Automation Platform instances
 
 If you don't have a working ServiceNow environment, create a developer instance at https://developer.servicenow.com
 
@@ -14,7 +14,9 @@ My ServiceNow instance is https://devABCXYZ.service-now.com/
 
 Search and replace `devABCXYZ` with your instance name.
 
-My Ansible Automation Platform instance is https://aap.example.org/
+My Ansible Automation Platform instance is https://aap.example.org/ and has a valid Let's Encrypt certificate.
+
+It is available and reachable without use of ServiceNow MID servers. MID Servers might require extra steps for the connection.
 
 Ansible Automation Platform has been configured with the demo content from https://github.com/sebw/Automate-AAP2. It contains a workflow that will be started in this demo.
 
