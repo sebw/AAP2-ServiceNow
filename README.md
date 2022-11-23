@@ -22,11 +22,10 @@ Ansible Automation Platform has been configured with the demo content from https
 
 This has been tested with AAP 2.2 and ServiceNow release "Tokyo.
 
-## How To
 
-### Prepare AAP
+## Prepare AAP
 
-#### oAuth2
+### oAuth2
 
 Go to AAP > Administration > Applications
 
@@ -48,7 +47,7 @@ Turn on "Allow External Users to Create OAuth2 Tokens"
 
 Click Save
 
-#### Certificate
+### Certificate
 
 ServiceNow no longer accepts self-signed certificate by default. I expect your AAP to have a valid cert.
 
@@ -84,7 +83,7 @@ nLRbwHOoq7hHwg==
 -----END CERTIFICATE-----
 ```
 
-### Prepare ServiceNow
+## Prepare ServiceNow
 
 Go to ServiceNow > System Definitions > Certificates
 
@@ -185,7 +184,7 @@ Add extra vars
 
 Click Submit
 
-### Test connectivity
+## Test connectivity
 
 Go to ServiceNow > System Web Services > Outbound > REST Message
 
@@ -197,7 +196,7 @@ Click Test
 
 Go to Ansible Automation Platform, you should see your workflow running.
 
-### Create a ServiceNow catalog item for the workflow
+## Create a ServiceNow catalog item
 
 Go to ServiceNow > Workflow > Workflow Editor
 
@@ -270,7 +269,7 @@ Click Process Engine
 - Flow: leave blank
 - Workflow: Provision VM (it should auto fill)
 
-#### Pretend to be a customer
+## Order a service from a web browser
 
 Go to ServiceNow > Self-service > Service Catalog
 
@@ -284,7 +283,7 @@ Go to AAP > Views > Logs
 
 You should see the workflow running
 
-#### Extra points: Mobile App!
+## Order a service from the ServiceNow mobile app
 
 Install the ServiceNow app called "Now Mobile"
 
