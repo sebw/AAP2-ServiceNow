@@ -22,7 +22,7 @@ Ansible Automation Platform has been configured with the demo content from https
 
 ## Compatibility
 
-This has been tested with AAP 2.2 and ServiceNow release "Tokyo.
+This has been tested with AAP 2.2 and ServiceNow release "Tokyo".
 
 
 ## Prepare AAP
