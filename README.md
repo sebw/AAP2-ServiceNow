@@ -206,9 +206,9 @@ Click New Workflow
 
 Click Submit
 
-Click the line
+Click the line connecting the two blocks (it turns blue when clicked)
 
-Delete the line (it turns blue) by pressing Delete on your keyboard
+Delete the line by pressing Delete on your keyboard
 
 Select the Core tab (upper right corner)
 
@@ -290,9 +290,9 @@ https://apps.apple.com/us/app/now-mobile/id1469616608
 
 https://play.google.com/store/apps/details?id=com.servicenow.requestor&hl=en&gl=US&pli=1
 
-Log into your instance
+Log into your instance on your mobile app
 
-Go to ServiceNow > System Mobile > Now Mobile App > Navigation Bar
+In your web browser, go to ServiceNow > System Mobile > Now Mobile App > Navigation Bar
 
 Click on Now Mobile Nav
 
@@ -303,14 +303,14 @@ Click Create New Tab
 
 Save
 
-Refresh your Mobile app, you should see a service section appear in the lower menu.
+Refresh your Mobile app, you should now see a service section appear in the lower menu.
 
-Navigate to ServiceNow > Services > Software > Provision VM
+From your mobile phone, navigate to Services > Software > Provision VM
 
 Click "Order now"
 
 Click "Checkout"
 
-Go to AAP > Views > Logs
+In your web browser, go to AAP > Views > Logs
 
 You should see the workflow running
