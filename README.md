@@ -4,15 +4,17 @@ ServiceNow can act as a Service Catalog on top of Ansible Automation Platform (A
 
 Let's see how we can integrate those two platforms together.
 
+As an extra bonus, the last section of this how to explains how to order a service from the ServiceNow mobile app.
+
 ## ServiceNow instance
 
 If you don't have a working ServiceNow environment, create a developer instance at https://developer.servicenow.com
 
-My ServiceNow instance is https://dev116261.service-now.com/
+My ServiceNow instance is https://devABCXYZ.service-now.com/
 
-Search and replace `dev116261` with your instance name.
+Search and replace `devABCXYZ` with your instance name.
 
-My Ansible Automation Platform instance is https://student1.rh8672.example.opentlc.com/
+My Ansible Automation Platform instance is https://aap.example.org/
 
 Ansible Automation Platform has been configured with the demo content from https://github.com/sebw/Automate-AAP2. It contains a workflow that will be started in this demo.
 
@@ -33,7 +35,7 @@ Click Add
 - Name: ServiceNow
 - Organization: Default
 - Authorization grant type: Authorization code
-- Redirect URIs: https://dev116261.service-now.com/oauth_redirect.do
+- Redirect URIs: https://devABCXYZ.service-now.com/oauth_redirect.do
 - Client type: Confidential
 
 Save the Client ID and Client Secret, they will be needed later.
@@ -105,10 +107,10 @@ Choose "Connect to a third party OAuth Provider"
 - Client ID: paste the client ID obtained earlier
 - Client Secret: paste your client secret obtained earlier
 - Default grant type: Authorization code
-- Authorization URL: https://student1.rh8672.example.opentlc.com/api/o/authorize/
-- Token URL: https://student1.rh8672.example.opentlc.com/api/o/token/
+- Authorization URL: https://aap.example.org/api/o/authorize/
+- Token URL: https://aap.example.org/api/o/token/
 - Token Revocation URL: leave blank
-- Redirect URL: https://dev116261.service-now.com/oauth_redirect.do
+- Redirect URL: https://devABCXYZ.service-now.com/oauth_redirect.do
 - Send Credentials: As Basic Authorization Header
 
 Click Submit
@@ -144,7 +146,7 @@ Go to ServiceNow > System Web Services > Outbound > REST Message
 Click New
 
 - name: AAP workflow
-- endpoint: https://student1.rh8672.example.opentlc.com/api/v2/workflow_job_templates/54/launch/
+- endpoint: https://aap.example.org/api/v2/workflow_job_templates/54/launch/
 - Authentication type: OAuth 2.0
 - OAuth profile: AAP default_profile
 
@@ -158,7 +160,7 @@ Click New in regard to the "HTTP Methods" at the bottom of the screen
 
 - Name: Provision VM
 - HTTP method: POST
-- Endpoint: https://student1.rh8672.example.opentlc.com/api/v2/workflow_job_templates/54/launch/
+- Endpoint: https://aap.example.org/api/v2/workflow_job_templates/54/launch/
 
 Click HTTP Request
 
