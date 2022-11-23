@@ -99,7 +99,7 @@ Go to ServiceNow > System OAuth > Application Registry
 
 Click New
 
-Choose "Connect to a thurd party OAuth Provider"
+Choose "Connect to a third party OAuth Provider"
 
 - Name: AAP
 - Client ID: paste the client ID obtained earlier
