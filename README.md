@@ -88,6 +88,7 @@ nLRbwHOoq7hHwg==
 ## Prepare ServiceNow
 
 Your instance can be found at https://developer.servicenow.com > Start Building 
+
 Go to ServiceNow > All > System Definitions > Certificates
 
 > **⛔Note**
