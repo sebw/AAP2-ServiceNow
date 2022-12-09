@@ -87,7 +87,14 @@ nLRbwHOoq7hHwg==
 
 ## Prepare ServiceNow
 
-Go to ServiceNow > System Definitions > Certificates
+Your instance can be found at https://developer.servicenow.com > Start Building 
+Go to ServiceNow > All > System Definitions > Certificates
+
+> **⛔Note**
+> This step is no longer required or needed as ServiceNow is no longer accepting self-signed certificates and you will require a valid signed certificate as specified in the introduction.
+
+> **⚠️Warning**
+> You need an admin account to accomplish this step. To enable your account as admin, go to https://developer.servicenow.com > Account (Top Right) > Change User Role > Admin.
 
 Click New
 
