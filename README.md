@@ -93,6 +93,7 @@ Go to ServiceNow > All > System Definitions > Certificates
 
 > **⛔Note**
 > This step is no longer required or needed as ServiceNow is no longer accepting self-signed certificates and you will require a valid signed certificate as specified in the introduction.
+
 > **⚠️Warning**
 > You need an admin account to accomplish this step. To enable your account as admin, go to https://developer.servicenow.com > Account (Top Right) > Change User Role > Admin.
 
@@ -158,7 +159,9 @@ Click New
 - Authentication type: OAuth 2.0
 - OAuth profile: AAP default_profile
 
-**Note**Make sure you find the right job ID (it will most likely not be 54), you can find it by navigating to the https://aap.example.org/api/v2/workflow_job_templates URL in your browser.
+> **📄Note**
+>
+> Make sure you find the right job ID (it will most likely not be 54), you can find it by navigating to the https://aap.example.org/api/v2/workflow_job_templates URL in your browser.
 
 
 Click Submit
