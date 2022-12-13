@@ -87,15 +87,7 @@ nLRbwHOoq7hHwg==
 
 ## Prepare ServiceNow
 
-Your instance can be found at https://developer.servicenow.com > Start Building 
-
-Go to ServiceNow > All > System Definitions > Certificates
-
-> **⛔Note**
-> This step is no longer required or needed as ServiceNow is no longer accepting self-signed certificates and you will require a valid signed certificate as specified in the introduction.
-
-> **⚠️Warning**
-> You need an admin account to accomplish this step. To enable your account as admin, go to https://developer.servicenow.com > Account (Top Right) > Change User Role > Admin.
+Go to ServiceNow > System Definitions > Certificates
 
 Click New
 
@@ -156,9 +148,11 @@ Click New
 
 - name: AAP workflow
 - endpoint: https://aap.example.org/api/v2/workflow_job_templates/54/launch/
-## TODO Endpoint on plewyllie is 63 and not 54???
 - Authentication type: OAuth 2.0
 - OAuth profile: AAP default_profile
+
+**Note**Make sure you find the right job ID (it will most likely not be 54), you can find it by navigating to the https://aap.example.org/api/v2/workflow_job_templates URL in your browser.
+
 
 Click Submit
 
@@ -171,8 +165,6 @@ Click New in regard to the "HTTP Methods" at the bottom of the screen
 - Name: Provision VM
 - HTTP method: POST
 - Endpoint: https://aap.example.org/api/v2/workflow_job_templates/54/launch/
-
-**Note**Make sure you find the right job ID (it will most likely not be 54), you can find it by navigating to the https://aap.example.org/api/v2/workflow_job_templates URL in your browser.
 
 Click HTTP Request
 
