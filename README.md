@@ -124,7 +124,7 @@ Double click on Insert a new row...
 
 Give it a name "Writing Scope" and click the green tick
 
-Right click on the top bar Application Registries and click Save
+Click Update
 
 Click "Writing Scope"
 
@@ -148,10 +148,11 @@ Click New
 
 - name: AAP workflow
 - endpoint: https://aap.example.org/api/v2/workflow_job_templates/54/launch/
+## TODO Endpoint on plewyllie is 63 and not 54???
 - Authentication type: OAuth 2.0
 - OAuth profile: AAP default_profile
 
-Right click the top bar and click Save
+Click Submit
 
 Click "Get OAuth Token"
 
@@ -163,6 +164,8 @@ Click New in regard to the "HTTP Methods" at the bottom of the screen
 - HTTP method: POST
 - Endpoint: https://aap.example.org/api/v2/workflow_job_templates/54/launch/
 
+**Note**Make sure you find the right job ID (it will most likely not be 54), you can find it by navigating to the https://aap.example.org/api/v2/workflow_job_templates URL in your browser.
+
 Click HTTP Request
 
 Double click "Insert a new row..." under HTTP Headers
@@ -173,7 +176,7 @@ Double click the Value field for "Content-Type"
 
 Type "application/json" and click the green tick
 
-Add extra vars
+Add the following "extra vars" in the content field
 
 ```json
 {
@@ -279,7 +282,7 @@ Choose Software
 
 Click "Provision VM"
 
-Click Order now
+Click Try it > Order now
 
 Go to AAP > Views > Logs
 
@@ -301,8 +304,8 @@ Click on Now Mobile Nav
 
 Click Create New Tab
 
-- Label: Services
-- Launcher Screen: Services
+- Navigation Bar: Now Mobile Nav
+- Navigation Tab: Services
 
 Save
 
