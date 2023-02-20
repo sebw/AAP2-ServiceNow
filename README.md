@@ -51,7 +51,9 @@ Click Save
 
 ### Certificate
 
-ServiceNow no longer accepts self-signed certificate by default. I expect your AAP to have a valid cert.
+ServiceNow no longer accepts self-signed certificate by default. I expect your AAP to have a valid cert. If you have a valid cert you do not need to do anything, ServiceNow would just call your AAP with no trouble.
+
+In case you have a self signed cert you might need to do the following:
 
 SSH into one of your AAP controller nodes.
 
@@ -173,7 +175,7 @@ Double click the Value field for "Content-Type"
 
 Type "application/json" and click the green tick
 
-Add extra vars
+Add extra vars under "HTTP Query Parameters" in the Content field.
 
 ```json
 {
