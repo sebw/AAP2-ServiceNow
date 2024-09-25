@@ -48,12 +48,13 @@ Turn on "Allow External Users to Create OAuth2 Tokens"
 
 Click Save
 
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/aap-applications.png)
+
 ### Certificate
 
 ServiceNow no longer accepts self-signed certificate by default. There is probably a way to force accepting self signed but this is outside of the scope of this doc.
 
 I expect your AAP to have a valid cert.
-
 
 ### Playbooks and workflow
 
@@ -69,6 +70,8 @@ backup: [true|false]
 ```
 
 Adapt your REST message and workflow script accordingly with the parameters you need to pass from ServiceNow to AAP.
+
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/aap-extravars.png)
 
 ## Prepare ServiceNow
 
@@ -95,6 +98,8 @@ Choose "Connect to a third party OAuth Provider"
 
 Click Submit
 
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/sn-appregistry.png)
+
 Go to the "AAP" Application Registry you just created
 
 Click "Oauth Entity Scopes" tab.
@@ -111,6 +116,8 @@ Set OAuth scope to "write"
 
 Click Update
 
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/sn-appregistry-scope.png)
+
 Click on "AAP default_profile" on the "OAuth Entity Profiles" tab (AAP is the name you gave to the application registry).
 
 Double click on "Insert a new row" under OAuth Entity Scope.
@@ -118,6 +125,8 @@ Double click on "Insert a new row" under OAuth Entity Scope.
 Type "Writing Scope" (it should auto fill) and click the green tick
 
 Click Update
+
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/oauth-write.png)
 
 ### REST Message
 
@@ -143,6 +152,8 @@ If everything goes fine you should get a blue bar at the top of the screen sayin
 
 > [!IMPORTANT]  
 > If you get an error at this stage, you need to re-check everything in Application Registry (ServiceNow) and Application (in AAP) are correct. If your AAP instance is not publicly available, you might need a MID server which is outside of the scope of this guide.
+
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/rest.png)
 
 Click New in regard to the "HTTP Methods" at the bottom of the screen
 
@@ -185,6 +196,8 @@ You can set test values for variable substitutions.
 
 Right click the upper menu and save.
 
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/rest-vm.png)
+
 Click "Preview Script Usage" and save the script somewhere safe, we'll need it later.
 
 It should look something like this (it contains the test values I have specified):
@@ -223,6 +236,13 @@ You can now validate the integration by clicking "Test".
 In the menu that appears you should see HTTP status 201.
 
 Go to Ansible Automation Platform, you should see your workflow running.
+
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/rest-test.png)
+
+
+> [!IMPORTANT]  
+> If you see things under ignore_fields in the response, you need to enable "prompt on launch" in the job/workflow configuration in AAP.
+
 
 ## Create the ServiceNow workflow
 
@@ -286,6 +306,10 @@ Click Publish
 
 Leave the editor
 
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/workflow.png)
+
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/workflow-script.png)
+
 ## Create the catalog item
 
 Go to ServiceNow > Service Catalog > Catalog Definitions > Maintain Items
@@ -313,6 +337,12 @@ Create two checkboxes for monitoring and backup agent.
 
 Click Update at the top.
 
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/catalog-item.png)
+
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/catalog-option.png)
+
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/catalog-process.png)
+
 ## Order a service from a web browser
 
 Go to ServiceNow > Self-service > Service Catalog
@@ -326,6 +356,8 @@ Click Order now
 Go to AAP > Views > Logs
 
 You should see the workflow running.
+
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/service-catalog.png)
 
 ## Order a service from the ServiceNow mobile app
 
@@ -356,6 +388,12 @@ Click "Order now"
 
 Click "Checkout"
 
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/mobile.jpg)
+
 In your web browser, go to AAP > Views > Logs
 
 You should see your workflow running.
+
+# Well done!
+
+If you want a demo or want to dive deeper in this integration, reach out to swains@redhat.com.
