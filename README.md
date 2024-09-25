@@ -1,29 +1,28 @@
 # ServiceNow integration with Ansible Automation Platform
 
-ServiceNow can act as a Service Catalog on top of Ansible Automation Platform (AAP).
+ServiceNow (SN) can act as a Service Catalog on top of Ansible Automation Platform (AAP).
 
-Let's see how we can integrate those two platforms together.
+Let's see how we can easily integrate those two platforms together!
 
-As an extra bonus, the last section of this how to explains how to order a service from the ServiceNow mobile app.
+In this guide, I'll create an entry in the service catalog allowing customers to order Windows or Red Hat Enterprise Linux virtual machines, in 3 different sizes. I also give the option to request monitoring and backup for the requested machine.
+
+The request will automatically be approved in SN and start an AAP workflow with parameters (extra variables) which subsequently will trigger the appropriate playbooks. The goal of this guide is to demonstrate the integration between SN and AAP and not the playbooks, you're in charge of developing your playbooks and workflows according to your automation needs.
+
+As an extra bonus, the last section of this guide explains how to order a service from the ServiceNow mobile app.
 
 ## ServiceNow and Ansible Automation Platform instances
 
 If you don't have a working ServiceNow environment, create a developer instance at https://developer.servicenow.com
 
-My ServiceNow instance is https://devABCXYZ.service-now.com/
+My ServiceNow instance is `https://devABCXYZ.service-now.com/`
 
-Search and replace `devABCXYZ` with your instance name.
-
-My Ansible Automation Platform instance is https://aap.example.org/ and has a valid Let's Encrypt certificate.
+My Ansible Automation Platform instance is `https://aap.example.org/` and has a valid certificate.
 
 It is available and reachable without use of ServiceNow MID servers. MID Servers might require extra steps for the connection.
 
-Ansible Automation Platform has been configured with the demo content from https://github.com/sebw/Automate-AAP2. It contains a workflow that will be started in this demo.
-
 ## Compatibility
 
-This has been tested with AAP 2.2 and ServiceNow release "Tokyo".
-
+This guide has been tested with AAP 2.4 and ServiceNow release "Xanadu".
 
 ## Prepare AAP
 
@@ -51,54 +50,32 @@ Click Save
 
 ### Certificate
 
-ServiceNow no longer accepts self-signed certificate by default. I expect your AAP to have a valid cert. If you have a valid cert you do not need to do anything, ServiceNow would just call your AAP with no trouble.
+ServiceNow no longer accepts self-signed certificate by default. There is probably a way to force accepting self signed but this is outside of the scope of this doc.
 
-In case you have a self signed cert you might need to do the following:
+I expect your AAP to have a valid cert.
 
-SSH into one of your AAP controller nodes.
 
-Copy and save the content of `/etc/tower/tower.cert`, it will be needed later.
+### Playbooks and workflow
 
-It looks something like this:
+In this guide, I do not dive into the workflow and playbooks that run after being called by ServiceNow.
 
+In this guide, the AAP workflow expects the following extra variables.
+
+```yaml
+operating_system: [Windows|RHEL]
+size: [small|medium|large]
+monitoring: [true|false]
+backup: [true|false]
 ```
------BEGIN CERTIFICATE-----
-MIIFTTCCBDWgAwIBAgISA6rmcIOanT+pz9dqEvzaSVutMA0GCSqGSIb3DQEBCwUA
-MDIxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQswCQYDVQQD
-EwJSMzAeFw0yMjExMjMwNzI4MjhaFw0yMzAyMjEwNzI4MjdaMC4xLDAqBgNVBAMT
-I3N0dWRlbnQxLnJoODY3Mi5leGFtcGxlLm9wZW50bGMuY29tMIIBIjANBgkqhkiG
-[...]
-6xJDmmurDLmOnOH/SVQJD2Dg/5XoYJ0Yy3pYD5u/g19SwN+PYBmMzbWVPg3M4lOr
-B3RfzUxSTyKG3GeQ0Hkrawlb/nlrliZ1YJz0WCuoLETpfTZTzBljOQvMd9Z1n4tu
-YRoFhHtzuTmjZ7wQebjIu1E=
------END CERTIFICATE-----
 
------BEGIN CERTIFICATE-----
-MIIFFjCCAv6gAwIBAgIRAJErCErPDBinU/bWLiWnX1owDQYJKoZIhvcNAQELBQAw
-TzELMAkGA1UEBhMCVVMxKTAnBgNVBAoTIEludGVybmV0IFNlY3VyaXR5IFJlc2Vh
-cmNoIEdyb3VwMRUwEwYDVQQDEwxJU1JHIFJvb3QgWDEwHhcNMjAwOTA0MDAwMDAw
-WhcNMjUwOTE1MTYwMDAwWjAyMQswCQYDVQQGEwJVUzEWMBQGA1UEChMNTGV0J3Mg
-[...]
-yK5GhDDX8oVfGKF5u+decIsH4YaTw7mP3GFxJSqv3+0lUFJoi5Lc5da149p90Ids
-hCExroL1+7mryIkXPeFM5TgO9r0rvZaBFOvV2z0gp35Z0+L4WPlbuEjN/lxPFin+
-HlUjr8gRsI3qfJOQFy/9rKIJR0Y/8Omwt/8oTWgy1mdeHmmjk7j1nYsvC9JSQ6Zv
-MldlTTKB3zhThV1+XWYp6rjd5JW1zbVWEkLNxE7GJThEUG3szgBVGP7pSWTUTsqX
-nLRbwHOoq7hHwg==
------END CERTIFICATE-----
-```
+Adapt your REST message and workflow script accordingly with the parameters you need to pass from ServiceNow to AAP.
 
 ## Prepare ServiceNow
 
-Go to ServiceNow > System Definitions > Certificates
+> [!NOTE]  
+> The application registry allows you to create and maintain an oAuth connection between ServiceNow and Ansible Automation Platform
 
-Click New
-
-- Name: AAP
-- Format: PEM
-- Type: Trust Store Cert
-- PEM certificate: paste your certificate copied in the previous step
-
-Click Submit
+### Application Registry
 
 Go to ServiceNow > System OAuth > Application Registry
 
@@ -110,17 +87,17 @@ Choose "Connect to a third party OAuth Provider"
 - Client ID: paste the client ID obtained earlier
 - Client Secret: paste your client secret obtained earlier
 - Default grant type: Authorization code
-- Authorization URL: https://aap.example.org/api/o/authorize/
-- Token URL: https://aap.example.org/api/o/token/
-- Token Revocation URL: leave blank
-- Redirect URL: https://devABCXYZ.service-now.com/oauth_redirect.do
+- Unlock the field for edit Authorization URL: https://aap.example.org/api/o/authorize/
+- Unlock the field and edit Token URL: https://aap.example.org/api/o/token/
+- Leave the Token Revocation URL blank
+- Redirect URL should already be configured: https://devABCXYZ.service-now.com/oauth_redirect.do
 - Send Credentials: As Basic Authorization Header
 
 Click Submit
 
 Go to the "AAP" Application Registry you just created
 
-Click Oauth Entity Scopes
+Click "Oauth Entity Scopes" tab.
 
 Double click on Insert a new row...
 
@@ -128,27 +105,30 @@ Give it a name "Writing Scope" and click the green tick
 
 Right click on the top bar Application Registries and click Save
 
-Click "Writing Scope"
+Click on the newly created "Writing Scope"
 
 Set OAuth scope to "write"
 
 Click Update
 
-Click on OAuth Entity Profiles
+Click on "AAP default_profile" on the "OAuth Entity Profiles" tab (AAP is the name you gave to the application registry).
 
-Click on AAP default_profile
-
-Double click on Insert a new row...
+Double click on "Insert a new row" under OAuth Entity Scope.
 
 Type "Writing Scope" (it should auto fill) and click the green tick
 
 Click Update
 
+### REST Message
+
 Go to ServiceNow > System Web Services > Outbound > REST Message
 
 Click New
 
-- name: AAP workflow
+> [!NOTE]
+> The endpoint below points to the workflow template ID 54. You can find the ID of your AAP workflow or jobs in the URL when editing the workflow/job. Replace the ID accordingly. If you want to start a job template and not a workflow, the endpoint would be `https://aap.example.org/api/v2/job_templates/54/launch/`
+
+- name: AAP
 - endpoint: https://aap.example.org/api/v2/workflow_job_templates/54/launch/
 - Authentication type: OAuth 2.0
 - OAuth profile: AAP default_profile
@@ -157,11 +137,16 @@ Right click the top bar and click Save
 
 Click "Get OAuth Token"
 
-Click Authorize in the popup window
+Click Authorize in the AAP popup window that appears.
+
+If everything goes fine you should get a blue bar at the top of the screen saying "OAuth Refresh token is available and will expire at _some date in the future_"
+
+> [!IMPORTANT]  
+> If you get an error at this stage, you need to re-check everything in Application Registry (ServiceNow) and Application (in AAP) are correct. If your AAP instance is not publicly available, you might need a MID server which is outside of the scope of this guide.
 
 Click New in regard to the "HTTP Methods" at the bottom of the screen
 
-- Name: Provision VM
+- Name: VM
 - HTTP method: POST
 - Endpoint: https://aap.example.org/api/v2/workflow_job_templates/54/launch/
 
@@ -181,51 +166,36 @@ Add extra vars under "HTTP Query Parameters" in the Content field.
 {
   "extra_vars":
   {
-    "my_var": "This is a workflow"
+    "operating_system": "${operating_system}",
+    "size": "${size}",
+    "monitoring": ${monitoring},
+    "backup": ${backup}
   }
 }
 ```
 
-Click Submit
-
-## Test connectivity
-
-Go to ServiceNow > System Web Services > Outbound > REST Message
-
-Click AAP workflow
-
-Click Provision VM
-
-Click Test
-
-Go to Ansible Automation Platform, you should see your workflow running.
-
-## Create a ServiceNow catalog item
-
-Go to ServiceNow > Workflow > Workflow Editor
-
-Click New Workflow
-
-- Name: Provision VM
-- Table: Requested Item (sc_req_item)
+> [!IMPORTANT]  
+> The monitoring and backup variables are not surrounded by double quotes. Check boxes in SN are passed as booleans (true/false).
 
 Click Submit
 
-Click the line connecting the two blocks (it turns blue when clicked)
+Click Auto-generate variables. This will generate variable substitutions below.
 
-Delete the line by pressing Delete on your keyboard
+You can set test values for variable substitutions.
 
-Select the Core tab (upper right corner)
+Right click the upper menu and save.
 
-Expand Core Activities > Utilities
+Click "Preview Script Usage" and save the script somewhere safe, we'll need it later.
 
-Drag "Run script" to the workflow editor
-
-Paste this code under "Script"
+It should look something like this (it contains the test values I have specified):
 
 ```
-try { 
- var r = new sn_ws.RESTMessageV2('AAP workflow', 'Provision VM');
+ try { 
+ var r = new sn_ws.RESTMessageV2('AAP', 'VM');
+ r.setStringParameterNoEscape('operating_system', 'Windows');
+ r.setStringParameterNoEscape('size', 'medium');
+ r.setStringParameterNoEscape('monitoring', 'true');
+ r.setStringParameterNoEscape('backup', 'false');
 
 //override authentication profile 
 //authentication type ='basic'/ 'oauth2'
@@ -248,9 +218,65 @@ catch(ex) {
 }
 ```
 
+You can now validate the integration by clicking "Test".
+
+In the menu that appears you should see HTTP status 201.
+
+Go to Ansible Automation Platform, you should see your workflow running.
+
+## Create the ServiceNow workflow
+
+Go to ServiceNow > Workflow > Workflow Editor
+
+Click New Workflow
+
+- Name: Provision VM
+- Table: Requested Item (sc_req_item)
+
 Click Submit
 
-Link the Begin block to the Run script block
+Click the line connecting the two blocks (it turns blue when clicked)
+
+Delete the line by pressing Delete on your keyboard
+
+Select the Core tab (upper right corner)
+
+Expand Core Activities > Utilities
+
+Drag "Run script" to the workflow editor
+
+Paste the code you have obtained earlier when you clicked "Preview Script Usage".
+
+Adjust the script so it looks like this:
+
+```
+try { 
+ var r = new sn_ws.RESTMessageV2('AAP', 'VM');
+
+ var operating_system = current.variables["operating_system"];
+ var size = current.variables["size"];
+ var backup = current.variables["backup"];
+ var monitoring = current.variables["monitoring"];
+
+ r.setStringParameterNoEscape('operating_system', operating_system);
+ r.setStringParameterNoEscape('size', size);
+ r.setStringParameterNoEscape('backup', backup);
+ r.setStringParameterNoEscape('monitoring', monitoring);
+
+ var response = r.execute();
+ var responseBody = response.getBody();
+ var httpStatus = response.getStatusCode();
+}
+catch(ex) {
+ var message = ex.message;
+}
+```
+
+I added 4 var lines in the script. Those allow to pass the parameters of the requested VM to the REST call.
+
+Click Submit
+
+Link the Begin block to the Run script block by dragging the mouse between both blocks.
 
 Link the Run script block to the End block
 
@@ -260,32 +286,46 @@ Click Publish
 
 Leave the editor
 
+## Create the catalog item
+
 Go to ServiceNow > Service Catalog > Catalog Definitions > Maintain Items
 
 Click New
 
-- name: Provision VM
-- Catalog: Service catalog
-- Category: Software
+- name: Virtual Machine
+- Catalog (unlock first): Service catalog
+- Category: Hardware
 
-Click Process Engine
+Click Process Engine tab
 
 - Flow: leave blank
 - Workflow: Provision VM (it should auto fill)
+
+Click Submit
+
+Choose "Fully automated" under Fullfillment automation level.
+
+Create 4 variables under the variables tab.
+
+Create two multiple choices for operating system and size.
+
+Create two checkboxes for monitoring and backup agent.
+
+Click Update at the top.
 
 ## Order a service from a web browser
 
 Go to ServiceNow > Self-service > Service Catalog
 
-Choose Software
+Choose Hardware
 
-Click "Provision VM"
+Click "Virtual Machine"
 
 Click Order now
 
 Go to AAP > Views > Logs
 
-You should see the workflow running
+You should see the workflow running.
 
 ## Order a service from the ServiceNow mobile app
 
@@ -303,14 +343,14 @@ Click on Now Mobile Nav
 
 Click Create New Tab
 
-- Label: Services
+- Navigation bar: Now Mobile Nav
 - Launcher Screen: Services
 
-Save
+Click Submit
 
 Refresh your Mobile app, you should now see a "Services" section appear in the lower menu.
 
-From your mobile phone, navigate to Services > Software > Provision VM
+Go to Mobile App > Services > Hardware > Others > Virtual Machine
 
 Click "Order now"
 
@@ -318,4 +358,4 @@ Click "Checkout"
 
 In your web browser, go to AAP > Views > Logs
 
-You should see the workflow running
+You should see your workflow running.
