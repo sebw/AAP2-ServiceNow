@@ -55,11 +55,11 @@ ServiceNow no longer accepts self-signed certificate by default. There is probab
 I expect your AAP to have a valid cert.
 
 
-### Playbook or workflow
+### Playbooks and workflow
 
-In this guide, I do not dive into the playbook that runs after being called by ServiceNow.
+In this guide, I do not dive into the workflow and playbooks that run after being called by ServiceNow.
 
-In this example, I'll run a workflow that expects the following extra variables.
+In this guide, the AAP workflow expects the following extra variables.
 
 ```yaml
 operating_system: [Windows|RHEL]
@@ -122,7 +122,7 @@ Go to ServiceNow > System Web Services > Outbound > REST Message
 Click New
 
 > [!NOTE]
-> The endpoint below points to the workflow template ID 54. You can find the ID of your AAP workflow or jobs in the URL when editing the workflow/job. Replace the ID accordingly.
+> The endpoint below points to the workflow template ID 54. You can find the ID of your AAP workflow or jobs in the URL when editing the workflow/job. Replace the ID accordingly. If you want to start a job template and not a workflow, the endpoint would be `https://aap.example.org/api/v2/job_templates/54/launch/`
 
 - name: AAP
 - endpoint: https://aap.example.org/api/v2/workflow_job_templates/54/launch/
