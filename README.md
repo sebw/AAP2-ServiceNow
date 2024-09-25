@@ -75,6 +75,8 @@ Adapt your REST message and workflow script accordingly with the parameters you 
 > [!NOTE]  
 > The application registry allows you to create and maintain an oAuth connection between ServiceNow and Ansible Automation Platform
 
+### Application Registry
+
 Go to ServiceNow > System OAuth > Application Registry
 
 Click New
@@ -116,6 +118,8 @@ Double click on "Insert a new row" under OAuth Entity Scope.
 Type "Writing Scope" (it should auto fill) and click the green tick
 
 Click Update
+
+### REST Message
 
 Go to ServiceNow > System Web Services > Outbound > REST Message
 
