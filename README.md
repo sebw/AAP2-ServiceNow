@@ -14,25 +14,15 @@ As an extra bonus, the last section of this guide explains how to order a servic
 
 If you don't have a working ServiceNow environment, create a developer instance at https://developer.servicenow.com
 
-My ServiceNow instance is https://devABCXYZ.service-now.com/
+My ServiceNow instance is `https://devABCXYZ.service-now.com/`
 
-Search and replace `devABCXYZ` with your instance name.
-
-My Ansible Automation Platform instance is https://aap.example.org/ and has a valid Let's Encrypt certificate.
+My Ansible Automation Platform instance is `https://aap.example.org/` and has a valid certificate.
 
 It is available and reachable without use of ServiceNow MID servers. MID Servers might require extra steps for the connection.
-
-Ansible Automation Platform has been configured with the demo content from https://github.com/sebw/Automate-AAP2. It contains a workflow that will be started in this demo.
 
 ## Compatibility
 
 This guide has been tested with AAP 2.4 and ServiceNow release "Xanadu".
-
-## Hostnames
-
-Replace devABCXYZ.service-now.com with your ServiceNow public instance hostname.
-
-Replace aap.example.org with your AAP instance hostname.
 
 ## Prepare AAP
 
