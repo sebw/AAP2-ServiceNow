@@ -138,7 +138,7 @@ Click Authorize in the AAP popup window that appears.
 If everything goes fine you should get a blue bar at the top of the screen saying "OAuth Refresh token is available and will expire at _some date in the future_"
 
 > [!IMPORTANT]  
-> If you get an error at this stage, you need to re-check everything in Application Registry (ServiceNow) and Application (in AAP) are correct.
+> If you get an error at this stage, you need to re-check everything in Application Registry (ServiceNow) and Application (in AAP) are correct. If your AAP instance is not publicly available, you might need a MID server which is outside of the scope of this guide.
 
 Click New in regard to the "HTTP Methods" at the bottom of the screen
 
