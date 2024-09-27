@@ -292,9 +292,35 @@ catch(ex) {
 }
 ```
 
+
+I added 4 var lines in the script. Those allow to pass the parameters of the requested VM to the REST call.
+
+Click Submit
+
+Link the Begin block to the Run script block by dragging the mouse between both blocks.
+
+Link the Run script block to the End block
+
+Click the Hamburger menu (3 lines icon in upper left corner)
+
+Click Publish
+
+Leave the editor
+
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/workflow.png)
+
+![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/workflow-script.png)
+
+### Bonus step
+
 If you'd like, you can even pass ServiceNow information to the AAP workflow!
 
-In the below code, I'll add the sys_id and the RITM number to the AAP job. This is super useful for tracking and updating the request later in the workflow.
+Passing ServiceNow info to AAP opens up possibilities:
+
+- updating the request automatically and in real time
+- closing the request automatically if the AAP workflow is successful
+
+In ServiceNow workflow editor, use this piece of code instead. You'll need to adjust the REST message variable substitutions accordingly.
 
 ```
 try { 
@@ -328,24 +354,6 @@ catch(ex) {
  var message = ex.message;
 }
 ```
-
-I added 4 var lines in the script. Those allow to pass the parameters of the requested VM to the REST call.
-
-Click Submit
-
-Link the Begin block to the Run script block by dragging the mouse between both blocks.
-
-Link the Run script block to the End block
-
-Click the Hamburger menu (3 lines icon in upper left corner)
-
-Click Publish
-
-Leave the editor
-
-![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/workflow.png)
-
-![](https://raw.githubusercontent.com/sebw/AAP2-ServiceNow/refs/heads/master/images/workflow-script.png)
 
 ## Create the catalog item
 
