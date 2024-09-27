@@ -292,6 +292,43 @@ catch(ex) {
 }
 ```
 
+If you'd like, you can even pass ServiceNow information to the AAP workflow!
+
+In the below code, I'll add the sys_id and the RITM number to the AAP job. This is super useful for tracking and updating the request later in the workflow.
+
+```
+try { 
+ var r = new sn_ws.RESTMessageV2('AAP_swains', 'VM');
+
+ var operating_system = current.variables["operating_system"];
+ var size = current.variables["size"];
+ var backup = current.variables["backup"];
+ var monitoring = current.variables["monitoring"];
+ var servicenow_sys_id = current.sys_id;
+
+ var ritm = new GlideRecord('sc_req_item');
+
+ if (ritm.get(servicenow_sys_id)) {
+	var servicenow_ritm = ritm.number;
+	ritm.update();
+ }
+
+ r.setStringParameterNoEscape('operating_system', operating_system);
+ r.setStringParameterNoEscape('size', size);
+ r.setStringParameterNoEscape('backup', backup);
+ r.setStringParameterNoEscape('monitoring', monitoring);
+ r.setStringParameterNoEscape('servicenow_sys_id', servicenow_sys_id);
+ r.setStringParameterNoEscape('servicenow_ritm', servicenow_ritm);
+
+ var response = r.execute();
+ var responseBody = response.getBody();
+ var httpStatus = response.getStatusCode();
+}
+catch(ex) {
+ var message = ex.message;
+}
+```
+
 I added 4 var lines in the script. Those allow to pass the parameters of the requested VM to the REST call.
 
 Click Submit
