@@ -1,14 +1,21 @@
 # ServiceNow integration with Ansible Automation Platform
 
-ServiceNow (SN) can act as a Service Catalog on top of Ansible Automation Platform (AAP) or even server has a dynamic inventory.
+ServiceNow (SN) can act as a Service Catalog or a CMDB for Ansible Automation Platform (AAP). AAP can also update and automate a lot of things in SN.
 
-If you're interested in the latter, check out my [other repository](https://github.com/sebw/AAP-servicenow-cmdb).
+If you're interested in the CMDB integration, check out my [other repository](https://github.com/sebw/AAP-servicenow-cmdb).
 
-But for now, let's focus on the service catalog part. Let's see how we can easily integrate both platforms together!
+This guide will focus on the service catalog part. Let's see how we can easily make SN discuss with AAP!
 
-In this guide, I'll create an entry in the service catalog allowing customers to order Windows or Red Hat Enterprise Linux virtual machines, in 3 different sizes. I also give the option to request monitoring and backup for the requested machine.
+First, I'll create an entry in the service catalog allowing customers to ordera Windows or Red Hat Enterprise Linux virtual machine, in 3 different sizes. 
 
-The request will automatically be approved in SN and start an AAP workflow with parameters (extra variables) which subsequently will trigger the appropriate playbooks. The goal of this guide is to demonstrate the integration between SN and AAP and not the playbooks, you're in charge of developing your playbooks and workflows according to your automation needs.
+The catalog item will also give the option to request some options like monitoring and backup for the requested virtual machine. Those options can trigger specific parts of the AAP workflow.
+
+The request will automatically be approved in SN and start an AAP workflow with parameters (extra variables) which subsequently will trigger the appropriate playbooks.
+
+![image](https://github.com/user-attachments/assets/fc666d52-3a51-42ea-ae5f-65d498a15350)
+
+> [!NOTE]
+> The goal of this guide is to demonstrate the integration between SN and AAP and not the playbooks, you're in charge of developing your playbooks and workflows according to your automation needs.
 
 As an extra bonus, the last section of this guide explains how to order a service from the ServiceNow mobile app.
 
