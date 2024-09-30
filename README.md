@@ -1,8 +1,10 @@
 # ServiceNow integration with Ansible Automation Platform
 
-ServiceNow (SN) can act as a Service Catalog on top of Ansible Automation Platform (AAP).
+ServiceNow (SN) can act as a Service Catalog on top of Ansible Automation Platform (AAP) or even server has a dynamic inventory.
 
-Let's see how we can easily integrate those two platforms together!
+If you're interested in the latter, check out my [other repository](https://github.com/sebw/AAP-servicenow-cmdb).
+
+But for now, let's focus on the service catalog part. Let's see how we can easily integrate both platforms together!
 
 In this guide, I'll create an entry in the service catalog allowing customers to order Windows or Red Hat Enterprise Linux virtual machines, in 3 different sizes. I also give the option to request monitoring and backup for the requested machine.
 
@@ -318,7 +320,8 @@ If you'd like, you can even pass ServiceNow information to the AAP workflow!
 Passing ServiceNow info to AAP opens up possibilities:
 
 - updating the request automatically and in real time
-- closing the request automatically if the AAP workflow is successful
+- closing the request automatically if the AAP workflow is successful (AAP has a supported collection to achieve this)
+- ...
 
 In ServiceNow workflow editor, use this piece of code instead. You'll need to adjust the REST message variable substitutions accordingly.
 

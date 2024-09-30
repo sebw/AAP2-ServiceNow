@@ -1,0 +1,14 @@
+- name: close ritm
+  hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: Close change_request
+    servicenow.itsm.change_request:
+      instance:
+        host: https://dev281498.service-now.com
+        username: admin
+        password: Ca5^pugc3aRB3&kWvC
+      state: closed
+      close_code: "successful"
+      close_notes: "Closed by AAP"
+      number: RITM0010061
