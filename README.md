@@ -12,7 +12,7 @@ The catalog item will also give the option to request some options like monitori
 
 The request will automatically be approved in SN and start an AAP workflow with parameters (extra variables) which subsequently will trigger the appropriate playbooks.
 
-![image](https://github.com/user-attachments/assets/fc666d52-3a51-42ea-ae5f-65d498a15350)
+![image](https://github.com/user-attachments/assets/f2c6fcc3-080a-4478-abe9-a69ad6593bc9)
 
 > [!NOTE]
 > The goal of this guide is to demonstrate the integration between SN and AAP and not the playbooks, you're in charge of developing your playbooks and workflows according to your automation needs.
